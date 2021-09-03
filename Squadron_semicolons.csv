@@ -1,0 +1,22 @@
+Data Type;Physical;Mental;Tactical;Name;Level;Class;Is Squadron Max Attributes?;XP Reward;Mission Available?;Total Attr.;Xp / Attr.
+Squadron;80;160;40;Squadron Attributes;2;;No;;;280;0
+Squadron;280;;;;;;Yes;;;280;0
+Member;90;23;53;Cecily;36;Gladiator;;;;166;0
+Member;36;24;108;Nanasomi;37;Archer;;;;168;0
+Member;102;24;42;Hastaloeya;37;Marauder;;;;168;0
+Member;25;18;93;Ceaulie;21;Archer;;;;136;0
+Member;54;32;64;Totodi;28;Pugilist;;;;150;0
+Member;53;23;90;Inghilswys;36;Lancer;;;;166;0
+Member;20;76;54;Sofine;28;Scholar;;;;150;0
+Member;22;90;44;Nunulupa Tatalupa;31;Thaumaturge;;;;156;0
+Mission;165;170;150;Military Courier;1;;;7500;Yes;485;15,46391753
+Mission;150;255;195;Outskirts Patrol;1;;;9000;Yes;600;15
+Mission;155;195;250;Beastmen Recon;5;;;10500;Yes;600;17,5
+Mission;305;210;130;Supply Wagon Escort;10;;;12000;Yes;645;18,60465116
+Mission;320;145;225;Pest Eradication;15;;;13500;No;690;19,56521739
+Mission;265;435;125;Frontline Support;20;;;15000;No;825;18,18181818
+Mission;270;145;425;Officer Escort;20;;;16500;Yes;840;19,64285714
+Mission;280;155;435;Border Patrol;25;;;19500;Yes;870;22,4137931
+Mission;440;175;300;Stronghold Recon;30;;;22500;Yes;915;24,59016393
+Mission;455;315;190;Search and Rescue;35;;;25500;Yes;960;26,5625
+Mission;170;480;310;Allied Maneuvers;35;;;27000;Yes;960;28,125
