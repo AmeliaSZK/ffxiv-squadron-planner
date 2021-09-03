@@ -23,6 +23,15 @@ class Stats:
     def __str__(self) -> str:
         return f'({self.phy:3} / {self.men:3} / {self.tac:3})'
     
+    def __eq__(self, other):
+        if isinstance(other, Stats):
+            return (    self.phy == other.phy
+                    and self.men == other.men
+                    and self.tac == other.tac)
+        else:
+            return NotImplemented
+
+
     def __add__(self, other):
         if isinstance(other, Stats):
             return Stats(self.phy + other.phy,
