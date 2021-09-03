@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass(order=True, frozen=True)
 class Attributes:
-    """
+    r"""
     Immutable object to group attributes, and do operations on them.
 
     phy = Physical
