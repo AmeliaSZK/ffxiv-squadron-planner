@@ -53,6 +53,12 @@ class Stats:
         else:
             return NotImplemented
 
+    def clears(self, requirement: 'Stats') -> bool:
+        """Verifies that all three stats meet the specified requirements."""
+        return (    self.phy >= requirement.phy
+                and self.men >= requirement.men
+                and self.tac >= requirement.tac)
+
 s1 = Stats(10, 20, 30)
 s2 = Stats(10, 20, 30)
 print(s1 == s2)     # True
