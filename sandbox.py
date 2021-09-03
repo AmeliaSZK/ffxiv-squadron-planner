@@ -73,7 +73,7 @@ sl3 = Stats(70, 80, 90)
 
 listed = [sl1, sl2, sl3]
 print(listed)
-summed = sum(listed)
+summed = sum(listed, start=Stats())
 print(summed)
 
 
