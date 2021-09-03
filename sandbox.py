@@ -57,9 +57,23 @@ print("repr = ")
 print(repr(s1))
 
 print(f"s1: {s1}")
-print(f"s1: {s2}")
+print(f"s2: {s2}")
 print(f"s1 == s2: {s1 == s2}")
 print(f"s1  + s2: {s1 + s2}")
+s3 = Stats()
+print(f"s3: {s3}")
+s3 += s1
+print(f"s3: {s3}")
+s3 += s2
+print(f"s3: {s3}")
 
+sl1 = Stats(10, 20, 30)
+sl2 = Stats(40, 50, 60)
+sl3 = Stats(70, 80, 90)
+
+listed = [sl1, sl2, sl3]
+print(listed)
+summed = sum(listed)
+print(summed)
 
 
