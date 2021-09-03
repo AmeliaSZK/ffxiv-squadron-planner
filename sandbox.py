@@ -1,18 +1,34 @@
 # A file to experiment with stuff in the Python language
 
 
-"""
-phy = Physical
-men = Mental
-tac = Tactical
-
-Comparisons are done by summing all 3 stats:
-    s1 = Stats(10, 20, 30)
-    s2 = Stats(40, 50, 60)
-    s1 < s2 # True: (10 + 20 + 30) < (40 + 50 + 60)
-            #                   60 < 150
-"""
 class Stats:
+    """
+    phy = Physical
+    men = Mental
+    tac = Tactical
+
+    Supports additions, subtractions, and equality,
+    by operating on each stat separately.
+        s1 = Stats(10, 20, 30)
+        s2 = Stats(10, 20, 30)
+        print(s1 == s2)     # True
+        s3 = s1 + s2
+        print(s3)           # ( 20 /  40 /  60)
+        s4 = s3 + Stats(10, 10, 10)
+        print(s4)           # ( 30 /  50 /  70)
+
+    To sum a list, use `start=Stats()` in the call to sum():
+        listed = [s1, s2, s3, s4]
+        summed = sum(listed, start=Stats())
+        print(summed)       # ( 70 / 130 / 190)
+    
+    Stats are printed as `(phy / men / tac)`
+    So `( 70 / 130 / 190)` means:
+        Physical =  70
+        Mental   = 130
+        Tactical = 190
+    """
+
     def __init__(self, phy: int=0, men: int=0, tac: int=0) -> None:
         self.phy = phy
         self.men = men
@@ -31,7 +47,6 @@ class Stats:
         else:
             return NotImplemented
 
-
     def __add__(self, other):
         if isinstance(other, Stats):
             return Stats(self.phy + other.phy,
@@ -47,33 +62,16 @@ class Stats:
         else:
             return NotImplemented
 
-s1 = Stats(10, 30, 40)
-s2 = Stats(10, 30, 40)
+s1 = Stats(10, 20, 30)
+s2 = Stats(10, 20, 30)
+print(s1 == s2)     # True
+s3 = s1 + s2
+print(s3)           # Stats(20, 40, 60)
+s4 = s3 + Stats(10, 10, 10)
+print(s4)           # Stats(30, 50, 70)
 
-
-print("print = ")
-print(s1)
-print("repr = ")
-print(repr(s1))
-
-print(f"s1: {s1}")
-print(f"s2: {s2}")
-print(f"s1 == s2: {s1 == s2}")
-print(f"s1  + s2: {s1 + s2}")
-s3 = Stats()
-print(f"s3: {s3}")
-s3 += s1
-print(f"s3: {s3}")
-s3 += s2
-print(f"s3: {s3}")
-
-sl1 = Stats(10, 20, 30)
-sl2 = Stats(40, 50, 60)
-sl3 = Stats(70, 80, 90)
-
-listed = [sl1, sl2, sl3]
+listed = [s1, s2, s3, s4]
 print(listed)
 summed = sum(listed, start=Stats())
 print(summed)
-
 
