@@ -27,15 +27,21 @@ class Attributes:
         dataclasses.FrozenInstanceError: cannot assign to field 'phy'
     
     To sum a list, use `start=Attributes()` in the call to sum():
-        listed = [s1, s2, s3, s4]
-        summed = sum(listed, start=Attributes())
-        print(summed)       # ( 70 / 130 / 190)
+        >>> as_list = [a1, a2, a3, a4]
+        >>> print(*as_list, sep='\n')
+        ( 10 /  20 /  30)
+        ( 10 /  20 /  30)
+        ( 20 /  40 /  60)
+        ( 10 /  30 /  50)
+        >>> sum_of_list = sum(as_list, start=Attributes())
+        >>> print(sum_of_list)
+        ( 50 / 110 / 170)
     
     Attributes are printed as `(phy / men / tac)`
-    So `( 70 / 130 / 190)` means:
-        Physical =  70
-        Mental   = 130
-        Tactical = 190
+    So `( 50 / 110 / 170)` means:
+        Physical =  50
+        Mental   = 110
+        Tactical = 170
     """
 
     phy: int = 0
