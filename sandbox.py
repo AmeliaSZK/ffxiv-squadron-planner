@@ -1,6 +1,8 @@
 # A file to experiment with stuff in the Python language
 
+from dataclasses import dataclass
 
+@dataclass(order=True, frozen=True)
 class Stats:
     """
     phy = Physical
@@ -8,7 +10,7 @@ class Stats:
     tac = Tactical
 
     Supports additions, subtractions, and equality,
-    by operating on each stat separately.
+    by operating on each stat separately:
         s1 = Stats(10, 20, 30)
         s2 = Stats(10, 20, 30)
         print(s1 == s2)     # True
@@ -29,23 +31,12 @@ class Stats:
         Tactical = 190
     """
 
-    def __init__(self, phy: int=0, men: int=0, tac: int=0) -> None:
-        self.phy = phy
-        self.men = men
-        self.tac = tac
-    
-    def __repr__(self) -> str:
-        return f'Stats({self.phy}, {self.men}, {self.tac})'
+    phy: int = 0
+    men: int = 0
+    tac: int = 0
+
     def __str__(self) -> str:
         return f'({self.phy:3} / {self.men:3} / {self.tac:3})'
-    
-    def __eq__(self, other):
-        if isinstance(other, Stats):
-            return (    self.phy == other.phy
-                    and self.men == other.men
-                    and self.tac == other.tac)
-        else:
-            return NotImplemented
 
     def __add__(self, other):
         if isinstance(other, Stats):
@@ -72,6 +63,14 @@ print(s4)           # Stats(30, 50, 70)
 
 listed = [s1, s2, s3, s4]
 print(listed)
+
 summed = sum(listed, start=Stats())
 print(summed)
+
+in_set = set(listed)
+print(in_set)
+
+sorted_list = sorted(listed)
+print(sorted_list)
+
 
