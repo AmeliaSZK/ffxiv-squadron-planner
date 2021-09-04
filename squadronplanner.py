@@ -1,5 +1,5 @@
 from attributes import Attributes
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import combinations, filterfalse
 
 @dataclass
@@ -28,6 +28,10 @@ class Squad:
     id: str
     members: tuple[Member]
     attr: Attributes
+    aggregate: int = field(init=False)
+
+    def __post_init__(self):
+        self.aggregate = self.attr.aggregate()
 
     def __str__(self):
         return f"{self.id} {self.attr}"
@@ -47,7 +51,15 @@ class Squadron:
         self.max_training_attr = max_training_attr
         self.remaining_daily_courses = remaining_daily_courses
 
-        self.squads: dict[str, Squad] = dict()
+        self.squads: list[Squad] = list()
+        self.squads_by_asc_aggr: list[Squad] = list()
+        self.squads_by_des_aggr: list[Squad] = list()
+        self.squads_by_asc_phy: list[Squad] = list()
+        self.squads_by_des_phy: list[Squad] = list()
+        self.squads_by_asc_men: list[Squad] = list()
+        self.squads_by_des_men: list[Squad] = list()
+        self.squads_by_asc_tac: list[Squad] = list()
+        self.squads_by_des_tac: list[Squad] = list()
 
     def craft_squad_id(self, selection: tuple[Member]) -> str:
         if len(selection) != 4:
@@ -60,6 +72,7 @@ class Squadron:
             # Then don't build them again.
             return
         
+        # Build squads, "sorted" by member ID
         for selection in combinations(self.members, 4):
             id = self.craft_squad_id(selection)
             members = selection
@@ -67,7 +80,7 @@ class Squadron:
             attr_as_list = [m.attr for m in selection]
             attr = sum(attr_as_list, start=Attributes())
 
-            self.squads[id] = Squad(id, members, attr)
+            self.squads.append(Squad(id, members, attr))
 
         return
 
@@ -79,7 +92,7 @@ class Squadron:
         mission: Mission, 
         training_attr: Attributes
     ):
-        for squad in self.squads.values():
+        for squad in self.squads:
             attr = squad.attr + training_attr
             if attr.clears(mission.requirements):
                 yield squad
@@ -135,7 +148,7 @@ print(*sq.members, sep='\n')
 
 sq.build_squads()
 print("Squads:")
-print(*sq.squads.values(), sep='\n')
+print(*sq.squads, sep='\n')
 
 print("Available Missions")
 print(*sq.iter_available_missions(), sep='\n')
