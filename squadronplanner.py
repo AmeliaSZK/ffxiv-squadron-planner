@@ -1,6 +1,6 @@
 from attributes import Attributes
 from dataclasses import dataclass
-from itertools import combinations
+from itertools import combinations, filterfalse
 
 @dataclass
 class Member:
@@ -65,11 +65,30 @@ class Squadron:
             members = selection
 
             attr_as_list = [m.attr for m in selection]
-            attr = sum(attr_as_list, start=self.training_attr)
+            attr = sum(attr_as_list, start=Attributes())
 
             self.squads[id] = Squad(id, members, attr)
 
         return
+
+    def list_doable_missions(self, training_attr: Attributes):
+        return
+    
+    def iter_qualifying_squads_for_mission(
+        self, 
+        mission: Mission, 
+        training_attr: Attributes
+    ):
+        for squad in self.squads.values():
+            attr = squad.attr + training_attr
+            if attr.clears(mission.requirements):
+                yield squad
+            else:
+                continue
+
+
+    def iter_available_missions(self):
+        return filter(lambda mi: mi.is_available, self.missions)
 
 
 # INPUT DATA
@@ -118,4 +137,10 @@ sq.build_squads()
 print("Squads:")
 print(*sq.squads.values(), sep='\n')
 
+print("Available Missions")
+print(*sq.iter_available_missions(), sep='\n')
 
+print("Nb of qualifying squad for each available mission")
+for mission in sq.iter_available_missions():
+    nb = len(list(sq.iter_qualifying_squads_for_mission(mission, sq.training_attr)))
+    print(f"{nb}\t{mission}")
