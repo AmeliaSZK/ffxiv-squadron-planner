@@ -24,6 +24,9 @@ class Mission:
     xp_reward: int
     is_available: bool
 
+    def __str__(self):
+        return f"Lv. {self.level:2}    {self.name} "
+
 @dataclass
 class Squad:
     id: str
@@ -112,14 +115,22 @@ class Squadron:
     def iter_qualifying_squads_for_mission(
         self, 
         mission: Mission, 
-        training_attr: Attributes
+        training_attr: Attributes,
+        squads_list: list[Squad] = None
     ):
-        for squad in self.squads:
+        """Default value for `squads_list` is `self.squads`"""
+        if squads_list is None:
+            squads_list = self.squads
+
+        for squad in squads_list:
             attr = squad.attr + training_attr
             if attr.clears(mission.requirements):
                 yield squad
             else:
                 continue
+    
+    def find_lowest_qualifying_squad(self, mission: Mission, training_attr: Attributes) -> Squad:
+        return list(self.iter_qualifying_squads_for_mission(mission, training_attr, self.squads_by_asc_aggr))[0]
 
 
     def iter_available_missions(self):
@@ -172,35 +183,40 @@ sq.build_squads()
 print("Squads:")
 print(*sq.squads, sep='\n')
 print()
-print("Squads by aggregate:")
-print(*sq.squads_by_asc_aggr, sep='\n')
-print()
-print("Squads by aggregate descending:")
-print(*sq.squads_by_des_aggr, sep='\n')
-print()
-print("Squads by Physical:")
-print(*sq.squads_by_asc_phy, sep='\n')
-print()
-print("Squads by Physical descending:")
-print(*sq.squads_by_des_phy, sep='\n')
-print()
-print("Squads by Mental:")
-print(*sq.squads_by_asc_men, sep='\n')
-print()
-print("Squads by Mental descending:")
-print(*sq.squads_by_des_men, sep='\n')
-print()
-print("Squads by Tactical:")
-print(*sq.squads_by_asc_tac, sep='\n')
-print()
-print("Squads by Tactical descending:")
-print(*sq.squads_by_des_tac, sep='\n')
-print()
+# print("Squads by aggregate:")
+# print(*sq.squads_by_asc_aggr, sep='\n')
+# print()
+# print("Squads by aggregate descending:")
+# print(*sq.squads_by_des_aggr, sep='\n')
+# print()
+# print("Squads by Physical:")
+# print(*sq.squads_by_asc_phy, sep='\n')
+# print()
+# print("Squads by Physical descending:")
+# print(*sq.squads_by_des_phy, sep='\n')
+# print()
+# print("Squads by Mental:")
+# print(*sq.squads_by_asc_men, sep='\n')
+# print()
+# print("Squads by Mental descending:")
+# print(*sq.squads_by_des_men, sep='\n')
+# print()
+# print("Squads by Tactical:")
+# print(*sq.squads_by_asc_tac, sep='\n')
+# print()
+# print("Squads by Tactical descending:")
+# print(*sq.squads_by_des_tac, sep='\n')
+# print()
 
 # print("Available Missions")
 # print(*sq.iter_available_missions(), sep='\n')
 
-# print("Nb of qualifying squad for each available mission")
-# for mission in sq.iter_available_missions():
-#     nb = len(list(sq.iter_qualifying_squads_for_mission(mission, sq.training_attr)))
-#     print(f"{nb}\t{mission}")
+print("Nb of qualifying squad for each available mission")
+for mission in sq.iter_available_missions():
+    nb = len(list(sq.iter_qualifying_squads_for_mission(mission, sq.training_attr)))
+    print(f"{nb}\t{mission}")
+
+print("Lowest qualifying squad for each available mission")
+for mission in sq.iter_available_missions():
+    squad = sq.find_lowest_qualifying_squad(mission, sq.training_attr)
+    print(f"{squad}\t{mission}")
