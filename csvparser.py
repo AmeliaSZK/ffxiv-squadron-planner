@@ -1,7 +1,7 @@
 import csv
 import logging
 
-input_filename = "Squadron_semicolons.csv"
+input_filename = "Squadron-2021-09-04.csv"
 
 rows_squadron = []
 rows_members = []
