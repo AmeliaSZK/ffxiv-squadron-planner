@@ -2,6 +2,7 @@ from attributes import Attributes
 from dataclasses import dataclass, field
 from itertools import combinations, islice
 from operator import attrgetter
+from typing import Optional
 
 @dataclass
 class Member:
@@ -129,9 +130,20 @@ class Squadron:
             else:
                 continue
     
-    def find_lowest_qualifying_squad(self, mission: Mission, training_attr: Attributes) -> Squad:
+    def find_lowest_qualifying_squad(
+        self, 
+        mission: Mission, 
+        training_attr: Attributes
+    ) -> Optional[Squad]:
+        """Find the squad with the lowest aggregate attributes that qualifies
+        for the specified mission.
+        
+        If there are no qualifying squads, returns None."""
         lowest_as_iter = islice(
-            self.iter_qualifying_squads_for_mission(mission, training_attr, self.squads_by_asc_aggr),
+            self.iter_qualifying_squads_for_mission(
+                mission, 
+                training_attr, 
+                self.squads_by_asc_aggr),
             1)
         lowest_as_list = list(lowest_as_iter)
         if len(lowest_as_list) == 0:
