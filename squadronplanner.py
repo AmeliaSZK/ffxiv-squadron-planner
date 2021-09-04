@@ -1,6 +1,7 @@
 from attributes import Attributes
 from dataclasses import dataclass, field
 from itertools import combinations, filterfalse
+from operator import attrgetter
 
 @dataclass
 class Member:
@@ -27,14 +28,16 @@ class Mission:
 class Squad:
     id: str
     members: tuple[Member]
-    attr: Attributes
+    attr: Attributes = field(init=False)
     aggregate: int = field(init=False)
 
     def __post_init__(self):
+        attr_as_list = [member.attr for member in self.members]
+        self.attr = sum(attr_as_list, start=Attributes())
         self.aggregate = self.attr.aggregate()
 
     def __str__(self):
-        return f"{self.id} {self.attr}"
+        return f"{self.id} {self.attr} (aggr={self.aggregate})"
 
 class Squadron:
     def __init__(
@@ -76,11 +79,30 @@ class Squadron:
         for selection in combinations(self.members, 4):
             id = self.craft_squad_id(selection)
             members = selection
+            self.squads.append(Squad(id, members))
+        
+        # Build the different sortings of the squads.
+        #   We are storing them all in memory, because
+        #   squads are at most 4 members, and there can
+        #   be at most 8 members in the squadron.
+        #   
+        #   There are only 70 ways to choose 4 items
+        #   from a set of 8. (https://www.wolframalpha.com/input/?i=8+choose+4)
+        #
+        #   We believe that a list of 70 items is negligible.
+        #
+        #   Also, we are assuming that Python will only create 70 Squad objects,
+        #   and that all the lists will only contain pointers to these same
+        #   70 objects. That might be wrong.
+        self.squads_by_asc_aggr = sorted(self.squads, key=attrgetter('aggregate'))
+        self.squads_by_des_aggr = sorted(self.squads, key=attrgetter('aggregate'), reverse=True)
+        self.squads_by_asc_phy  = sorted(self.squads, key=attrgetter('attr.phy', 'aggregate'))
+        self.squads_by_des_phy  = sorted(self.squads, key=attrgetter('attr.phy', 'aggregate'), reverse=True)
+        self.squads_by_asc_men  = sorted(self.squads, key=attrgetter('attr.men', 'aggregate'))
+        self.squads_by_des_men  = sorted(self.squads, key=attrgetter('attr.men', 'aggregate'), reverse=True)
+        self.squads_by_asc_tac  = sorted(self.squads, key=attrgetter('attr.tac', 'aggregate'))
+        self.squads_by_des_tac  = sorted(self.squads, key=attrgetter('attr.tac', 'aggregate'), reverse=True)
 
-            attr_as_list = [m.attr for m in selection]
-            attr = sum(attr_as_list, start=Attributes())
-
-            self.squads.append(Squad(id, members, attr))
 
         return
 
@@ -149,11 +171,36 @@ print(*sq.members, sep='\n')
 sq.build_squads()
 print("Squads:")
 print(*sq.squads, sep='\n')
+print()
+# print("Squads by aggregate:")
+# print(*sq.squads_by_asc_aggr, sep='\n')
+# print()
+# print("Squads by aggregate descending:")
+# print(*sq.squads_by_des_aggr, sep='\n')
+# print()
+print("Squads by Physical:")
+print(*sq.squads_by_asc_aggr, sep='\n')
+print()
+print("Squads by Physical descending:")
+print(*sq.squads_by_des_aggr, sep='\n')
+print()
+# print("Squads by Mental:")
+# print(*sq.squads_by_asc_aggr, sep='\n')
+# print()
+# print("Squads by Mental descending:")
+# print(*sq.squads_by_des_aggr, sep='\n')
+# print()
+# print("Squads by Tactical:")
+# print(*sq.squads_by_asc_aggr, sep='\n')
+# print()
+# print("Squads by Tactical descending:")
+# print(*sq.squads_by_des_aggr, sep='\n')
+# print()
 
-print("Available Missions")
-print(*sq.iter_available_missions(), sep='\n')
+# print("Available Missions")
+# print(*sq.iter_available_missions(), sep='\n')
 
-print("Nb of qualifying squad for each available mission")
-for mission in sq.iter_available_missions():
-    nb = len(list(sq.iter_qualifying_squads_for_mission(mission, sq.training_attr)))
-    print(f"{nb}\t{mission}")
+# print("Nb of qualifying squad for each available mission")
+# for mission in sq.iter_available_missions():
+#     nb = len(list(sq.iter_qualifying_squads_for_mission(mission, sq.training_attr)))
+#     print(f"{nb}\t{mission}")
