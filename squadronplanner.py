@@ -54,21 +54,18 @@ class Course(Enum):
     MEN_TAC = 6
 
 
-
+@dataclass
 class TrainingProgram:
     """All calculations assume that individuals training attributes
     must always be a multiple of 20.
     """
-    def __init__(
-        self,
-        courses: tuple[Course],
-        initial_attr: Attributes,
-        max_aggregate: int
-    ):
-        self.courses = courses
-        self.initial_attr = initial_attr
-        self.max_aggregate = max_aggregate
-        
+    courses: tuple[Course]
+    initial_attr: Attributes
+    max_aggregate: int
+    is_redundant: bool = field(init=False)
+    attr: Attributes = field(init=False)
+
+    def __post_init__(self):
         self.is_redundant, self.attr = self.calculate_program()
 
     def calculate_one_course(
@@ -409,6 +406,7 @@ print(training_attr)
 print(max_training_attr)
 
 prog1 = TrainingProgram((Course.PHY,), training_attr, max_training_attr)
+print(prog1)
 
 print()
 print(f"Initial\t{training_attr}")
