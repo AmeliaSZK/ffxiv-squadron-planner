@@ -103,6 +103,24 @@ class Attributes:
             60
         """
         return self.phy + self.men + self.tac
+    
+    def has_room_for_delta(self, delta: 'Attributes', max_aggregate: int) -> bool:
+        new_phy = self.phy + delta.phy
+        if new_phy < 0 or max_aggregate < new_phy:
+            return False
+
+        new_men = self.men + delta.men
+        if new_men < 0 or max_aggregate < new_men:
+            return False
+
+        new_tac = self.tac + delta.tac
+        if new_tac < 0 or max_aggregate < new_tac:
+            return False
+
+        if max_aggregate < (new_phy + new_men + new_tac):
+            return False
+        
+        return True
 
 if __name__ == "__main__":
     import doctest
