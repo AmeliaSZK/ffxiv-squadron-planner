@@ -269,12 +269,10 @@ class Squadron:
         self.squads_by_des_men  = sorted(self.squads, key=attrgetter('attr.men', 'aggregate'), reverse=True)
         self.squads_by_asc_tac  = sorted(self.squads, key=attrgetter('attr.tac', 'aggregate'))
         self.squads_by_des_tac  = sorted(self.squads, key=attrgetter('attr.tac', 'aggregate'), reverse=True)
-
-
         return
 
-    def list_doable_missions(self, training_attr: Attributes):
-        return
+    def iter_available_missions(self):
+        return filter(lambda mi: mi.is_available, self.missions)
     
     def iter_qualifying_squads_for_mission(
         self, 
@@ -315,9 +313,25 @@ class Squadron:
             lowest = lowest_as_list[0]
         return lowest
 
+    def mission_is_doable_with_program(
+        self, 
+        mission: Mission, 
+        program: TrainingProgram
+    ) -> bool:
+        """If any squad clears the requirements of the specified mission
+        with the specified training program, then True. Otherwise, False."""
+        for squad in self.squads:
+            attr = squad.attr + program.attr
+            if attr.clears(mission.requirements):
+                return True
+        return False
 
-    def iter_available_missions(self):
-        return filter(lambda mi: mi.is_available, self.missions)
+    def iter_doable_missions_with_program(self, program: TrainingProgram):
+        for mission in self.iter_available_missions():
+            pass
+        return
+
+
 
 
 # INPUT DATA
