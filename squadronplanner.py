@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from itertools import combinations, islice
 from operator import attrgetter
 from typing import Optional
+from enum import Enum, unique
 
 @dataclass
 class Member:
@@ -43,15 +44,42 @@ class Squad:
     def __str__(self):
         return f"{self.id} {self.attr} (aggr={self.aggregate})"
 
+@unique
+class Course(Enum):
+    PHY = 1
+    MEN = 2
+    TAC = 3
+    PHY_MEN = 4
+    PHY_TAC = 5
+    MEN_TAC = 6
+
+
+
+class TrainingProgram:
+    def __init__(
+        self,
+        squad: Squad,
+        courses: tuple[Course],
+        initial_attr: Attributes,
+        max_aggregate: int
+    ):
+        self.squad = squad
+        self.courses = courses
+        self.initial_attr = initial_attr
+        self.max_aggregate = max_aggregate
+        pass
+
+
+
 class Squadron:
     def __init__(
-            self, 
-            members: list[Member],
-            missions: list[Mission],
-            training_attr: Attributes,
-            max_training_attr: int,
-            remaining_daily_courses: int=3
-        ):
+        self, 
+        members: list[Member],
+        missions: list[Mission],
+        training_attr: Attributes,
+        max_training_attr: int,
+        remaining_daily_courses: int=3
+    ):
         self.members = members
         self.missions = missions
         self.training_attr = training_attr
