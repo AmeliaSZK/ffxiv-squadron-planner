@@ -61,12 +61,10 @@ class TrainingProgram:
     """
     def __init__(
         self,
-        squad: Squad,
         courses: tuple[Course],
         initial_attr: Attributes,
         max_aggregate: int
     ):
-        self.squad = squad
         self.courses = courses
         self.initial_attr = initial_attr
         self.max_aggregate = max_aggregate
@@ -97,7 +95,7 @@ class TrainingProgram:
 
         # When we can apply the intended delta
         # Best case scenario, but very rare
-        if base_attr.has_room_for_delta(intended_delta):
+        if base_attr.has_room_for_delta(intended_delta, self.max_aggregate):
             return base_attr + intended_delta
 
         # When we start at max_aggregate
@@ -115,7 +113,7 @@ class TrainingProgram:
         elif course == Course.MEN_TAC:
             balanced_delta = Attributes(-40, 20, 20)
         
-        if base_attr.has_room_for_delta(balanced_delta):
+        if base_attr.has_room_for_delta(balanced_delta, self.max_aggregate):
             return base_attr + balanced_delta
         
         # If the function has still not returned, 
@@ -183,7 +181,7 @@ class TrainingProgram:
             rebalanced_2_delta]
         
         for delta in all_deltas:
-            if delta is not None and base_attr.has_room_for_delta(delta):
+            if delta is not None and base_attr.has_room_for_delta(delta, self.max_aggregate):
                 return base_attr + delta
 
 
@@ -400,8 +398,12 @@ print()
 print("Training courses")
 print(training_attr)
 print(max_training_attr)
-squad1 = sq.squads[0]
-print(squad1)
 
-prog1 = TrainingProgram(squad1, tuple(Course.PHY,), training_attr, max_training_attr)
-print(prog1)
+prog1 = TrainingProgram((Course.PHY,), training_attr, max_training_attr)
+
+print()
+print(f"Initial\t{training_attr}")
+for course in list(Course):
+    new_attr = prog1.calculate_one_course(training_attr, course)
+    delta = new_attr - training_attr
+    print(f"{course.name:7}\t{new_attr}    {delta}")
