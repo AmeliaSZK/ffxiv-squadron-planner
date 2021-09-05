@@ -1,6 +1,6 @@
 from attributes import Attributes
 from dataclasses import dataclass, field
-from itertools import combinations, islice
+from itertools import combinations, islice, product
 from operator import attrgetter
 from typing import Optional
 from enum import Enum, unique
@@ -91,6 +91,8 @@ class TrainingProgram:
             intended_delta = Attributes(20, 0, 20)
         elif course == Course.MEN_TAC:
             intended_delta = Attributes(0, 20, 20)
+        else:
+            raise ValueError(f"course = {course}")
         # "delta" means "change in..."
         # so "intended_delta" means "intended change to base attributes"
 
@@ -436,6 +438,7 @@ for course in list(Course):
     delta = new_attr - training_attr
     print(f"{course.name:7}\t{new_attr}    {delta}")
 
+print()
 empty_prog = TrainingProgram(tuple(), training_attr, max_training_attr)
 print(empty_prog)
 print(*sq.iter_doable_missions_with_program(empty_prog), sep='\n')
@@ -446,4 +449,30 @@ for course in list(Course):
     prog = TrainingProgram((course,), training_attr, max_training_attr)
     print(prog)
     print(*sq.iter_doable_missions_with_program(prog), sep='\n')
+    print()
+
+print()
+print(f"Initial\t{training_attr}")
+for courses in product(list(Course), repeat=2):
+    prog = TrainingProgram(courses, training_attr, max_training_attr)
+    doable_missions = list(sq.iter_doable_missions_with_program(prog))
+    if prog.is_redundant:
+        continue
+    if len(doable_missions) <= 3:
+        continue
+    print(prog)
+    print(*doable_missions, sep='\n')
+    print()
+
+print()
+print(f"Initial\t{training_attr}")
+for courses in product(list(Course), repeat=3):
+    prog = TrainingProgram(courses, training_attr, max_training_attr)
+    if prog.is_redundant:
+        continue
+    doable_missions = list(sq.iter_doable_missions_with_program(prog))
+    if len(doable_missions) <= 3:
+        continue
+    print(prog)
+    print(*doable_missions, sep='\n')
     print()
