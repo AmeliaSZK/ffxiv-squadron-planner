@@ -69,8 +69,7 @@ class TrainingProgram:
         self.initial_attr = initial_attr
         self.max_aggregate = max_aggregate
         
-        self.is_redundant: bool = False
-        self.attr = Attributes()
+        self.is_redundant, self.attr = self.calculate_program()
 
     def calculate_one_course(
         self, 
@@ -189,8 +188,18 @@ class TrainingProgram:
         #   so we return what we started with.
         return base_attr
 
-    def calculate_program(self) -> None:
-        pass
+    def calculate_program(self) -> tuple[bool, Attributes]:
+        is_redundant = False
+        attr = self.initial_attr
+
+        for course in self.courses:
+            new_attr = self.calculate_one_course(attr, course)
+
+            course_was_useless = new_attr == attr
+            if course_was_useless:
+                is_redundant = True            
+            attr = new_attr
+        return is_redundant, attr
 
 
 
