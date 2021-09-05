@@ -335,6 +335,13 @@ class Squadron:
             else:
                 continue
 
+    def print_lowest_squad_for_all_doable_missions(self, program: TrainingProgram):
+        for mission in self.iter_doable_missions_with_program(program):
+            squad = self.find_lowest_qualifying_squad(mission, program.attr)
+            if squad is None:
+                continue
+            print(f"{squad} {mission} {program}")
+
 
 
 
@@ -476,3 +483,12 @@ for courses in product(list(Course), repeat=3):
     print(prog)
     print(*doable_missions, sep='\n')
     print()
+
+prog_tac_tac = TrainingProgram((Course.TAC, Course.TAC), training_attr, max_training_attr)
+prog_tac_tac_phytac = TrainingProgram((Course.TAC, Course.TAC, Course.PHY_TAC), training_attr, max_training_attr)
+print()
+print(prog_tac_tac)
+sq.print_lowest_squad_for_all_doable_missions(prog_tac_tac)
+print()
+print(prog_tac_tac_phytac)
+sq.print_lowest_squad_for_all_doable_missions(prog_tac_tac_phytac)
