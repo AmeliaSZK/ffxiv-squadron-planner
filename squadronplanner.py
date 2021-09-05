@@ -67,7 +67,52 @@ class TrainingProgram:
         self.courses = courses
         self.initial_attr = initial_attr
         self.max_aggregate = max_aggregate
+        
+        self.is_redundant: bool = False
+        self.attr = Attributes()
+
+    def calculate_one_course(
+        self, 
+        base_attr: Attributes, 
+        course: Course
+    ) -> Attributes:
+        base_aggr = base_attr.aggregate()
+
+        # Base data:
+        if course == Course.PHY:
+            intended_delta = Attributes(40, 0, 0)
+        elif course == Course.MEN:
+            intended_delta = Attributes(0, 40, 0)
+        elif course == Course.TAC:
+            intended_delta = Attributes(0, 0, 40)
+        elif course == Course.PHY_MEN:
+            intended_delta = Attributes(20, 20, 0)
+        elif course == Course.PHY_TAC:
+            intended_delta = Attributes(20, 0, 20)
+        elif course == Course.MEN_TAC:
+            intended_delta = Attributes(0, 20, 20)
+        # "delta" means "change in..."
+        # so "intended_delta" means "intended change to base attributes"
+
+        # Apply the training
+        new_attr = base_attr + intended_delta
+
+        # When base_attr was under the max_aggregate
+        # Best case scenario, but very rare
+        if new_attr.aggregate() <= self.max_aggregate:
+            return new_attr
+
+        # When we start at max_aggregate
+        # Most common scenario
+        if base_aggr == self.max_aggregate:
+            pass
+
+
+        return Attributes()
+
+    def calculate_program(self) -> None:
         pass
+
 
 
 
@@ -268,3 +313,4 @@ print("Lowest qualifying squad for each available mission")
 for mission in sq.iter_available_missions():
     squad = sq.find_lowest_qualifying_squad(mission, sq.training_attr)
     print(f"{squad}\t{mission}")
+
