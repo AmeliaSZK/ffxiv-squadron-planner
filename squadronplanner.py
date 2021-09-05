@@ -56,6 +56,9 @@ class Course(Enum):
 
 
 class TrainingProgram:
+    """All calculations assume that individuals training attributes
+    must always be a multiple of 20.
+    """
     def __init__(
         self,
         squad: Squad,
@@ -76,8 +79,6 @@ class TrainingProgram:
         base_attr: Attributes, 
         course: Course
     ) -> Attributes:
-        base_aggr = base_attr.aggregate()
-
         # Base data:
         if course == Course.PHY:
             intended_delta = Attributes(40, 0, 0)
@@ -94,21 +95,101 @@ class TrainingProgram:
         # "delta" means "change in..."
         # so "intended_delta" means "intended change to base attributes"
 
-        # Apply the training
-        new_attr = base_attr + intended_delta
-
-        # When base_attr was under the max_aggregate
+        # When we can apply the intended delta
         # Best case scenario, but very rare
-        if new_attr.aggregate() <= self.max_aggregate:
-            return new_attr
+        if base_attr.has_room_for_delta(intended_delta):
+            return base_attr + intended_delta
 
         # When we start at max_aggregate
         # Most common scenario
-        if base_aggr == self.max_aggregate:
-            pass
+        if course == Course.PHY:
+            balanced_delta = Attributes(40, -20, -20)
+        elif course == Course.MEN:
+            balanced_delta = Attributes(-20, 40, -20)
+        elif course == Course.TAC:
+            balanced_delta = Attributes(-20, -20, 40)
+        elif course == Course.PHY_MEN:
+            balanced_delta = Attributes(20, 20, -40)
+        elif course == Course.PHY_TAC:
+            balanced_delta = Attributes(20, -40, 20)
+        elif course == Course.MEN_TAC:
+            balanced_delta = Attributes(-40, 20, 20)
+        
+        if base_attr.has_room_for_delta(balanced_delta):
+            return base_attr + balanced_delta
+        
+        # If the function has still not returned, 
+        #   then one attribute will either go negative,
+        #   or break the max after the delta.
+        # Since we assume all individual attributes are multiples of 20,
+        #   we have these solutions:
+        #   A) Reduce the delta.              Eg: ( 40/  0/  0) -> ( 20/  0/ 0)
+        #   B) Reduce the balancing.          Eg: (-40/ 20/ 20) -> (-20/ 20/20)
+        #   C) Balance on a single attribute. Eg: ( 40/-20/-20) -> ( 40/-40/ 0)
+        #   D) (next section)
+        # Because of the "multiples of 20" rule, not all of these solution can
+        #   be used on all courses.
+        # Because the goal of training courses is to *increase* the stats, 
+        #   we will prioritize the solution with the biggest increases.
+        #
+        # NB.: This Python script attempts to emulate the in-game rules,
+        #   and none of our rules & assumptions have been tested yet.
+
+        reduced_delta = None
+        reduced_balancing_delta = None
+        reduced_delta_1 = None
+        reduced_delta_2 = None
+        rebalanced_1_delta = None
+        rebalanced_2_delta = None
+        if course == Course.PHY:
+            reduced_delta = Attributes(20, 0, 0)
+            rebalanced_1_delta = Attributes(40, -40,   0)
+            rebalanced_2_delta = Attributes(40,   0, -40)
+        elif course == Course.MEN:
+            reduced_delta = Attributes(0, 20, 0)
+            rebalanced_1_delta = Attributes(-40, 40,   0)
+            rebalanced_2_delta = Attributes(  0, 40, -40)
+        elif course == Course.TAC:
+            reduced_delta = Attributes(0, 0, 20)
+            rebalanced_1_delta = Attributes(-40,   0, 40)
+            rebalanced_2_delta = Attributes(  0, -40, 40)
+        elif course == Course.PHY_MEN:
+            reduced_balancing_delta = Attributes(20, 20, -20) 
+            reduced_delta_1 = Attributes(20, 0, 0) 
+            reduced_delta_2 = Attributes(0, 20, 0) 
+            rebalanced_1_delta = Attributes(20, 0, -20) 
+            rebalanced_2_delta = Attributes(0, 20, -20) 
+        elif course == Course.PHY_TAC:
+            reduced_balancing_delta = Attributes(20, -20, 20) 
+            reduced_delta_1 = Attributes(20, 0, 0) 
+            reduced_delta_2 = Attributes(0, 0, 20) 
+            rebalanced_1_delta = Attributes(20, -20, 0) 
+            rebalanced_2_delta = Attributes(0, -20, 20) 
+        elif course == Course.MEN_TAC:
+            reduced_balancing_delta = Attributes(-20, 20, 20) 
+            reduced_delta_1 = Attributes(0, 20, 0) 
+            reduced_delta_2 = Attributes(0, 0, 20) 
+            rebalanced_1_delta = Attributes(-20, 20, 0) 
+            rebalanced_2_delta = Attributes(-20, 0, 20) 
+        
+        # The order of this list is important, because that's where
+        #   the priorities are defined.
+        all_deltas = [
+            reduced_delta, 
+            reduced_balancing_delta, 
+            reduced_delta_1,
+            reduced_delta_2,
+            rebalanced_1_delta, 
+            rebalanced_2_delta]
+        
+        for delta in all_deltas:
+            if delta is not None and base_attr.has_room_for_delta(delta):
+                return base_attr + delta
 
 
-        return Attributes()
+        # If all attempts have failed, then the course cannot improve anything,
+        #   so we return what we started with.
+        return base_attr
 
     def calculate_program(self) -> None:
         pass
@@ -314,3 +395,13 @@ for mission in sq.iter_available_missions():
     squad = sq.find_lowest_qualifying_squad(mission, sq.training_attr)
     print(f"{squad}\t{mission}")
 
+# Tests for training courses:
+print()
+print("Training courses")
+print(training_attr)
+print(max_training_attr)
+squad1 = sq.squads[0]
+print(squad1)
+
+prog1 = TrainingProgram(squad1, tuple(Course.PHY,), training_attr, max_training_attr)
+print(prog1)
