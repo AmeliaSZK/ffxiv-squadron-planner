@@ -328,8 +328,10 @@ class Squadron:
 
     def iter_doable_missions_with_program(self, program: TrainingProgram):
         for mission in self.iter_available_missions():
-            pass
-        return
+            if self.mission_is_doable_with_program(mission, program):
+                yield mission
+            else:
+                continue
 
 
 
@@ -434,8 +436,14 @@ for course in list(Course):
     delta = new_attr - training_attr
     print(f"{course.name:7}\t{new_attr}    {delta}")
 
+empty_prog = TrainingProgram(tuple(), training_attr, max_training_attr)
+print(empty_prog)
+print(*sq.iter_doable_missions_with_program(empty_prog), sep='\n')
+
 print()
 print(f"Initial\t{training_attr}")
 for course in list(Course):
     prog = TrainingProgram((course,), training_attr, max_training_attr)
     print(prog)
+    print(*sq.iter_doable_missions_with_program(prog), sep='\n')
+    print()
