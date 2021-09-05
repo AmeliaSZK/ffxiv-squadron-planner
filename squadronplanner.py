@@ -67,6 +67,11 @@ class TrainingProgram:
 
     def __post_init__(self):
         self.is_redundant, self.attr = self.calculate_program()
+    
+    def __str__(self):
+        course_names = [course.name for course in self.courses]
+        joined_names = ", ".join(course_names)
+        return f"{self.attr}    ({joined_names})"
 
     def calculate_one_course(
         self, 
@@ -414,3 +419,9 @@ for course in list(Course):
     new_attr = prog1.calculate_one_course(training_attr, course)
     delta = new_attr - training_attr
     print(f"{course.name:7}\t{new_attr}    {delta}")
+
+print()
+print(f"Initial\t{training_attr}")
+for course in list(Course):
+    prog = TrainingProgram((course,), training_attr, max_training_attr)
+    print(prog)
