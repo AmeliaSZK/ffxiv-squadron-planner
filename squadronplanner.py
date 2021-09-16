@@ -473,7 +473,7 @@ for courses in product(list(Course), repeat=2):
     doable_missions = list(sq.iter_doable_missions_with_program(prog))
     if prog.is_redundant:
         continue
-    if len(doable_missions) <= 4:
+    if len(doable_missions) <= 5:
         continue
     print(prog)
     print(*doable_missions, sep='\n')
@@ -492,11 +492,15 @@ for courses in product(list(Course), repeat=2):
 #     print(*doable_missions, sep='\n')
 #     print()
 
-prog_tac_tac = TrainingProgram((Course.TAC,), training_attr, max_training_attr)
-prog_tac_tac_phytac = TrainingProgram((Course.TAC, Course.PHY_TAC), training_attr, max_training_attr)
+prog_phy_phy = TrainingProgram((Course.PHY, Course.PHY,), training_attr, max_training_attr)
+prog_tac_tac = TrainingProgram((Course.TAC, Course.TAC,), training_attr, max_training_attr)
+prog_tac_tac_phytac = TrainingProgram((Course.TAC, Course.TAC, Course.PHY_TAC), training_attr, max_training_attr)
 print()
-print(prog_tac_tac)
-sq.print_lowest_squad_for_all_doable_missions(prog_tac_tac)
-print()
-print(prog_tac_tac_phytac)
-sq.print_lowest_squad_for_all_doable_missions(prog_tac_tac_phytac)
+print(prog_phy_phy)
+sq.print_lowest_squad_for_all_doable_missions(prog_phy_phy)
+# print()
+# print(prog_tac_tac)
+# sq.print_lowest_squad_for_all_doable_missions(prog_tac_tac)
+# print()
+# print(prog_tac_tac_phytac)
+# sq.print_lowest_squad_for_all_doable_missions(prog_tac_tac_phytac)
