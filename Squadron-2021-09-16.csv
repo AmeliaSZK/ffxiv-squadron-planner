@@ -1,0 +1,21 @@
+Data Type;Physical;Mental;Tactical;Name;Level;Class;Squadron Max Attributes;XP Reward;Mission Available?;Sort Order
+Squadron;60;140;80;Squadron Attributes;2;;280;;;
+Member;92;24;54;Cecily;38;Gladiator;;;;1
+Member;36;24;108;Nanasomi;37;Archer;;;;2
+Member;105;24;43;Hastaloeya;39;Marauder;;;;3
+Member;56;34;66;Totodi;31;Pugilist;;;;4
+Member;54;24;90;Inghilswys;37;Lancer;;;;5
+Member;22;79;57;Sofine;32;Arcanist;;;;6
+Member;22;94;46;Nunulupa Tatalupa;34;Thaumaturge;;;;7
+Member;22;106;28;Awayuki;31;Conjurer;;;;8
+Mission;160;150;175;Military Courier;1;;;7500;Yes;
+Mission;155;195;250;Outskirts Patrol;1;;;9000;Yes;
+Mission;245;155;200;Beastmen Recon;5;;;10500;Yes;
+Mission;210;320;115;Supply Wagon Escort;10;;;12000;No;
+Mission;130;335;225;Pest Eradication;15;;;13500;No;
+Mission;410;270;145;Frontline Support;20;;;15000;No;
+Mission;415;275;150;Officer Escort;20;;;16500;Yes;
+Mission;280;450;140;Border Patrol;25;;;19500;Yes;
+Mission;155;465;295;Stronghold Recon;30;;;22500;Yes;
+Mission;310;185;465;Search and Rescue;35;;;25500;Yes;
+Mission;185;310;465;Allied Maneuvers;35;;;27000;Yes;
