@@ -348,7 +348,7 @@ class Squadron:
 # INPUT DATA
 #   Hardcoded for development, because I don't want to deal with 
 #   the logic of Squadron Training Attributes
-training_attr = Attributes(80, 160, 40)
+training_attr = Attributes(60, 140, 80)
 max_training_attr = 280
 
 #   And also, I didn't want to deal with how to architect my whole
@@ -372,9 +372,9 @@ missions = [
 Mission(requirements=Attributes(165,170,150),name="Military Courier", level=1, xp_reward=7500, is_available=True),
 Mission(requirements=Attributes(150,255,195),name="Outskirts Patrol", level=1, xp_reward=9000, is_available=True),
 Mission(requirements=Attributes(155,195,250),name="Beastmen Recon", level=5, xp_reward=10500, is_available=True),
-Mission(requirements=Attributes(305,210,130),name="Supply Wagon Escort", level=10, xp_reward=12000, is_available=False),
-Mission(requirements=Attributes(320,145,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=False),
-Mission(requirements=Attributes(265,435,125),name="Frontline Support", level=20, xp_reward=15000, is_available=False),
+Mission(requirements=Attributes(305,210,130),name="Supply Wagon Escort", level=10, xp_reward=12000, is_available=True),
+Mission(requirements=Attributes(320,145,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=True),
+Mission(requirements=Attributes(265,435,125),name="Frontline Support", level=20, xp_reward=15000, is_available=True),
 Mission(requirements=Attributes(270,145,425),name="Officer Escort", level=20, xp_reward=16500, is_available=True),
 Mission(requirements=Attributes(280,155,435),name="Border Patrol", level=25, xp_reward=19500, is_available=True),
 Mission(requirements=Attributes(440,175,300),name="Stronghold Recon", level=30, xp_reward=22500, is_available=True),
@@ -439,6 +439,7 @@ prog1 = TrainingProgram((Course.PHY,), training_attr, max_training_attr)
 print(prog1)
 
 print()
+print("Resulting delta for specified course on specifiied initial stats")
 print(f"Initial\t{training_attr}")
 for course in list(Course):
     new_attr = prog1.calculate_one_course(training_attr, course)
@@ -446,11 +447,13 @@ for course in list(Course):
     print(f"{course.name:7}\t{new_attr}    {delta}")
 
 print()
+print("Doable missions with no training")
 empty_prog = TrainingProgram(tuple(), training_attr, max_training_attr)
 print(empty_prog)
 print(*sq.iter_doable_missions_with_program(empty_prog), sep='\n')
 
 print()
+print("Doable missions with one course, grouped by course")
 print(f"Initial\t{training_attr}")
 for course in list(Course):
     prog = TrainingProgram((course,), training_attr, max_training_attr)
@@ -465,27 +468,27 @@ for courses in product(list(Course), repeat=2):
     doable_missions = list(sq.iter_doable_missions_with_program(prog))
     if prog.is_redundant:
         continue
-    if len(doable_missions) <= 3:
+    if len(doable_missions) <= 4:
         continue
     print(prog)
     print(*doable_missions, sep='\n')
     print()
 
-print()
-print(f"Initial\t{training_attr}")
-for courses in product(list(Course), repeat=3):
-    prog = TrainingProgram(courses, training_attr, max_training_attr)
-    if prog.is_redundant:
-        continue
-    doable_missions = list(sq.iter_doable_missions_with_program(prog))
-    if len(doable_missions) <= 3:
-        continue
-    print(prog)
-    print(*doable_missions, sep='\n')
-    print()
+# print()
+# print(f"Initial\t{training_attr}")
+# for courses in product(list(Course), repeat=3):
+#     prog = TrainingProgram(courses, training_attr, max_training_attr)
+#     if prog.is_redundant:
+#         continue
+#     doable_missions = list(sq.iter_doable_missions_with_program(prog))
+#     if len(doable_missions) <= 3:
+#         continue
+#     print(prog)
+#     print(*doable_missions, sep='\n')
+#     print()
 
-prog_tac_tac = TrainingProgram((Course.TAC, Course.TAC), training_attr, max_training_attr)
-prog_tac_tac_phytac = TrainingProgram((Course.TAC, Course.TAC, Course.PHY_TAC), training_attr, max_training_attr)
+prog_tac_tac = TrainingProgram((Course.TAC,), training_attr, max_training_attr)
+prog_tac_tac_phytac = TrainingProgram((Course.TAC, Course.PHY_TAC), training_attr, max_training_attr)
 print()
 print(prog_tac_tac)
 sq.print_lowest_squad_for_all_doable_missions(prog_tac_tac)
