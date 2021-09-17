@@ -348,21 +348,21 @@ class Squadron:
 # INPUT DATA
 #   Hardcoded for development, because I don't want to deal with 
 #   the logic of Squadron Training Attributes
-training_attr = Attributes(60, 140, 80)
+training_attr = Attributes(140, 100, 40)
 max_training_attr = 280
 
 #   And also, I didn't want to deal with how to architect my whole
 #   project to deal with the CSV parsing etc etc.
 
 members = [
-    Member(id=1, attr=Attributes( 92, 24, 54), name="Cecily",            level=38, job="Gladiator"),
-    Member(id=2, attr=Attributes( 36, 24,108), name="Nanasomi",          level=37, job="Archer"),
-    Member(id=3, attr=Attributes(105, 24, 43), name="Hastaloeya",        level=39, job="Marauder"),
-    Member(id=4, attr=Attributes( 56, 34, 66), name="Totodi",            level=31, job="Pugilist"),
-    Member(id=5, attr=Attributes( 54, 24, 90), name="Inghilswys",        level=37, job="Lancer"),
-    Member(id=6, attr=Attributes( 22, 79, 57), name="Sofine",            level=32, job="Scholar"),
-    Member(id=7, attr=Attributes( 22, 94, 46), name="Nunulupa Tatalupa", level=34, job="Thaumaturge"),
-    Member(id=8, attr=Attributes( 22,106, 28), name="Awayuki",           level=31, job="Conjurer"),
+    Member(id=1, attr=Attributes(96,24,54), name="Cecily",            level=40, job="Gladiator"),
+    Member(id=2, attr=Attributes(36,24,108), name="Nanasomi",          level=37, job="Archer"),
+    Member(id=3, attr=Attributes(106,24,44), name="Hastaloeya",        level=40, job="Marauder"),
+    Member(id=4, attr=Attributes(57,34,69), name="Totodi",            level=33, job="Pugilist"),
+    Member(id=5, attr=Attributes(54,24,90), name="Inghilswys",        level=37, job="Lancer"),
+    Member(id=6, attr=Attributes(22,79,57), name="Sofine",            level=32, job="Scholar"),
+    Member(id=7, attr=Attributes(22,94,46), name="Nunulupa Tatalupa", level=34, job="Thaumaturge"),
+    Member(id=8, attr=Attributes(22,112,28), name="Awayuki",           level=34, job="Conjurer"),
 ]
 
 #   Yes, I copy-pasted the CSV in the python file, and then I used
@@ -377,7 +377,7 @@ Mission(requirements=Attributes(245,155,200),name="Beastmen Recon", level=5, xp_
 Mission(requirements=Attributes(210,320,115),name="Supply Wagon Escort", level=10, xp_reward=12000, is_available=True),
 Mission(requirements=Attributes(130,335,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=True),
 Mission(requirements=Attributes(410,270,145),name="Frontline Support", level=20, xp_reward=15000, is_available=True),
-Mission(requirements=Attributes(415,275,150),name="Officer Escort", level=20, xp_reward=16500, is_available=True),
+Mission(requirements=Attributes(415,275,150),name="Officer Escort", level=20, xp_reward=16500, is_available=False),
 Mission(requirements=Attributes(280,450,140),name="Border Patrol", level=25, xp_reward=19500, is_available=True),
 Mission(requirements=Attributes(155,465,295),name="Stronghold Recon", level=30, xp_reward=22500, is_available=True),
 Mission(requirements=Attributes(310,185,465),name="Search and Rescue", level=35, xp_reward=25500, is_available=True),
