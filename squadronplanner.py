@@ -348,27 +348,32 @@ class Squadron:
 # INPUT DATA
 #   Hardcoded for development, because I don't want to deal with 
 #   the logic of Squadron Training Attributes
-training_attr = Attributes(140, 100, 40)
+training_attr = Attributes(60, 200, 20)
 max_training_attr = 280
 
 #   And also, I didn't want to deal with how to architect my whole
 #   project to deal with the CSV parsing etc etc.
 
 members = [
-    Member(id=1, attr=Attributes(96,24,54), name="Cecily",            level=40, job="Gladiator"),
-    Member(id=2, attr=Attributes(36,24,108), name="Nanasomi",          level=37, job="Archer"),
-    Member(id=3, attr=Attributes(106,24,44), name="Hastaloeya",        level=40, job="Marauder"),
-    Member(id=4, attr=Attributes(57,34,69), name="Totodi",            level=33, job="Pugilist"),
-    Member(id=5, attr=Attributes(54,24,90), name="Inghilswys",        level=37, job="Lancer"),
-    Member(id=6, attr=Attributes(22,79,57), name="Sofine",            level=32, job="Scholar"),
-    Member(id=7, attr=Attributes(22,94,46), name="Nunulupa Tatalupa", level=34, job="Thaumaturge"),
-    Member(id=8, attr=Attributes(22,112,28), name="Awayuki",           level=34, job="Conjurer"),
+    Member(id=1, attr=Attributes(98,25,55), name="Cecily",            level=42, job="Gladiator"),
+    Member(id=2, attr=Attributes(37,24,109), name="Nanasomi",          level=38, job="Archer"),
+    Member(id=3, attr=Attributes(108,26,46), name="Hastaloeya",        level=43, job="Marauder"),
+    Member(id=4, attr=Attributes(58,34,70), name="Totodi",            level=34, job="Pugilist"),
+    Member(id=5, attr=Attributes(55,24,91), name="Inghilswys",        level=38, job="Lancer"),
+    Member(id=6, attr=Attributes(22,81,57), name="Sofine",            level=33, job="Scholar"),
+    Member(id=7, attr=Attributes(24,97,49), name="Nunulupa Tatalupa", level=38, job="Thaumaturge"),
+    Member(id=8, attr=Attributes(24,114,30), name="Awayuki",           level=37, job="Conjurer"),
 ]
 
 #   Yes, I copy-pasted the CSV in the python file, and then I used
 #       the multi-column cursor in Visual Studio Code.
 #   Yes, I also went and manually updated the data when I got the 
 #       Squadron-2021-09-16.csv file.
+#   This is now the third time that I manually update this data, and I will
+#       probably reimplement the whole thing in Excel before I code a proper
+#       CSV parser lol.
+#       (Excel would help tremendously with the taming of the output...)
+#       (And also, that CSV "input" is first written in Excel lol.)
 
 missions = [
 Mission(requirements=Attributes(160,150,175),name="Military Courier", level=1, xp_reward=7500, is_available=True),
@@ -378,14 +383,17 @@ Mission(requirements=Attributes(210,320,115),name="Supply Wagon Escort", level=1
 Mission(requirements=Attributes(130,335,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=True),
 Mission(requirements=Attributes(410,270,145),name="Frontline Support", level=20, xp_reward=15000, is_available=True),
 Mission(requirements=Attributes(415,275,150),name="Officer Escort", level=20, xp_reward=16500, is_available=False),
-Mission(requirements=Attributes(280,450,140),name="Border Patrol", level=25, xp_reward=19500, is_available=True),
+Mission(requirements=Attributes(280,450,140),name="Border Patrol", level=25, xp_reward=19500, is_available=False),
 Mission(requirements=Attributes(155,465,295),name="Stronghold Recon", level=30, xp_reward=22500, is_available=True),
 Mission(requirements=Attributes(310,185,465),name="Search and Rescue", level=35, xp_reward=25500, is_available=True),
 Mission(requirements=Attributes(185,310,465),name="Allied Maneuvers", level=35, xp_reward=27000, is_available=True),
+Mission(requirements=Attributes(315,325,340),name="Flagged Mission: Crystal Recovery", level=40, xp_reward=30000, is_available=True),
 ]
 
 #   But to manually update the mission attributes, I used the multi-column
 #       cursor in Visual Studio Code.
+#   Also, I forgot to add the level 40 mission when I manually "updated"
+#       for the 2021-09-17 -_-
 
 sq = Squadron(members, missions, training_attr, max_training_attr)
 

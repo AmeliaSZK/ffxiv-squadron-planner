@@ -1,0 +1,22 @@
+Data Type;Physical;Mental;Tactical;Name;Level;Class;Squadron Max Attributes;XP Reward;Mission Available?;Sort Order
+Squadron;60;200;20;Squadron Attributes;2;;280;;;
+Member;98;25;55;Cecily;42;Gladiator;;;;1
+Member;37;24;109;Nanasomi;38;Archer;;;;2
+Member;108;26;46;Hastaloeya;43;Marauder;;;;3
+Member;58;34;70;Totodi;34;Pugilist;;;;4
+Member;55;24;91;Inghilswys;38;Lancer;;;;5
+Member;22;81;57;Sofine;33;Arcanist;;;;6
+Member;24;97;49;Nunulupa Tatalupa;38;Thaumaturge;;;;7
+Member;24;114;30;Awayuki;37;Conjurer;;;;8
+Mission;160;150;175;Military Courier;1;;;7500;;
+Mission;155;195;250;Outskirts Patrol;1;;;9000;;
+Mission;245;155;200;Beastmen Recon;5;;;10500;;
+Mission;210;320;115;Supply Wagon Escort;10;;;12000;;
+Mission;130;335;225;Pest Eradication;15;;;13500;;
+Mission;410;270;145;Frontline Support;20;;;15000;;
+Mission;415;275;150;Officer Escort;20;;;16500;No;
+Mission;280;450;140;Border Patrol;25;;;19500;No;
+Mission;155;465;295;Stronghold Recon;30;;;22500;;
+Mission;310;185;465;Search and Rescue;35;;;25500;;
+Mission;185;310;465;Allied Maneuvers;35;;;27000;;
+Mission;315;325;340;Flagged Mission: Crystal Recovery;40;;;30000;;
