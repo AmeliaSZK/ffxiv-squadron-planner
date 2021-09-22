@@ -348,21 +348,21 @@ class Squadron:
 # INPUT DATA
 #   Hardcoded for development, because I don't want to deal with 
 #   the logic of Squadron Training Attributes
-training_attr = Attributes(60, 200, 20)
+training_attr = Attributes(20, 220, 40)
 max_training_attr = 280
 
 #   And also, I didn't want to deal with how to architect my whole
 #   project to deal with the CSV parsing etc etc.
 
 members = [
-    Member(id=1, attr=Attributes(98,25,55), name="Cecily",            level=42, job="Gladiator"),
-    Member(id=2, attr=Attributes(37,24,109), name="Nanasomi",          level=38, job="Archer"),
+    Member(id=1, attr=Attributes(98,26,56), name="Cecily",            level=43, job="Gladiator"),
+    Member(id=2, attr=Attributes(39,25,114), name="Nanasomi",          level=42, job="Archer"),
     Member(id=3, attr=Attributes(108,26,46), name="Hastaloeya",        level=43, job="Marauder"),
-    Member(id=4, attr=Attributes(58,34,70), name="Totodi",            level=34, job="Pugilist"),
+    Member(id=4, attr=Attributes(61,36,73), name="Totodi",            level=38, job="Pugilist"),
     Member(id=5, attr=Attributes(55,24,91), name="Inghilswys",        level=38, job="Lancer"),
-    Member(id=6, attr=Attributes(22,81,57), name="Sofine",            level=33, job="Scholar"),
+    Member(id=6, attr=Attributes(24,84,60), name="Sofine",            level=37, job="Scholar"),
     Member(id=7, attr=Attributes(24,97,49), name="Nunulupa Tatalupa", level=38, job="Thaumaturge"),
-    Member(id=8, attr=Attributes(24,114,30), name="Awayuki",           level=37, job="Conjurer"),
+    Member(id=8, attr=Attributes(24,118,32), name="Awayuki",           level=40, job="Conjurer"),
 ]
 
 #   Yes, I copy-pasted the CSV in the python file, and then I used
@@ -376,17 +376,17 @@ members = [
 #       (And also, that CSV "input" is first written in Excel lol.)
 
 missions = [
-Mission(requirements=Attributes(160,150,175),name="Military Courier", level=1, xp_reward=7500, is_available=True),
-Mission(requirements=Attributes(155,195,250),name="Outskirts Patrol", level=1, xp_reward=9000, is_available=True),
-Mission(requirements=Attributes(245,155,200),name="Beastmen Recon", level=5, xp_reward=10500, is_available=True),
-Mission(requirements=Attributes(210,320,115),name="Supply Wagon Escort", level=10, xp_reward=12000, is_available=True),
-Mission(requirements=Attributes(130,335,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=True),
-Mission(requirements=Attributes(410,270,145),name="Frontline Support", level=20, xp_reward=15000, is_available=True),
-Mission(requirements=Attributes(415,275,150),name="Officer Escort", level=20, xp_reward=16500, is_available=False),
-Mission(requirements=Attributes(280,450,140),name="Border Patrol", level=25, xp_reward=19500, is_available=False),
-Mission(requirements=Attributes(155,465,295),name="Stronghold Recon", level=30, xp_reward=22500, is_available=True),
-Mission(requirements=Attributes(310,185,465),name="Search and Rescue", level=35, xp_reward=25500, is_available=True),
-Mission(requirements=Attributes(185,310,465),name="Allied Maneuvers", level=35, xp_reward=27000, is_available=True),
+Mission(requirements=Attributes(165,170,150),name="Military Courier", level=1, xp_reward=7500, is_available=True),
+Mission(requirements=Attributes(150,255,195),name="Outskirts Patrol", level=1, xp_reward=9000, is_available=True),
+Mission(requirements=Attributes(155,195,250),name="Beastmen Recon", level=5, xp_reward=10500, is_available=True),
+Mission(requirements=Attributes(305,210,130),name="Supply Wagon Escort", level=10, xp_reward=12000, is_available=True),
+Mission(requirements=Attributes(320,145,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=True),
+Mission(requirements=Attributes(265,435,125),name="Frontline Support", level=20, xp_reward=15000, is_available=True),
+Mission(requirements=Attributes(270,145,425),name="Officer Escort", level=20, xp_reward=16500, is_available=True),
+Mission(requirements=Attributes(280,155,435),name="Border Patrol", level=25, xp_reward=19500, is_available=True),
+Mission(requirements=Attributes(440,175,300),name="Stronghold Recon", level=30, xp_reward=22500, is_available=True),
+Mission(requirements=Attributes(455,315,190),name="Search and Rescue", level=35, xp_reward=25500, is_available=True),
+Mission(requirements=Attributes(170,480,310),name="Allied Maneuvers", level=35, xp_reward=27000, is_available=True),
 Mission(requirements=Attributes(315,325,340),name="Flagged Mission: Crystal Recovery", level=40, xp_reward=30000, is_available=True),
 ]
 
