@@ -348,21 +348,21 @@ class Squadron:
 # INPUT DATA
 #   Hardcoded for development, because I don't want to deal with 
 #   the logic of Squadron Training Attributes
-training_attr = Attributes(20, 220, 40)
+training_attr = Attributes(20, 120, 140)
 max_training_attr = 280
 
 #   And also, I didn't want to deal with how to architect my whole
 #   project to deal with the CSV parsing etc etc.
 
 members = [
-    Member(id=1, attr=Attributes(98,26,56), name="Cecily",            level=43, job="Gladiator"),
-    Member(id=2, attr=Attributes(39,25,114), name="Nanasomi",          level=42, job="Archer"),
-    Member(id=3, attr=Attributes(108,26,46), name="Hastaloeya",        level=43, job="Marauder"),
-    Member(id=4, attr=Attributes(61,36,73), name="Totodi",            level=38, job="Pugilist"),
-    Member(id=5, attr=Attributes(55,24,91), name="Inghilswys",        level=38, job="Lancer"),
-    Member(id=6, attr=Attributes(24,84,60), name="Sofine",            level=37, job="Scholar"),
-    Member(id=7, attr=Attributes(24,97,49), name="Nunulupa Tatalupa", level=38, job="Thaumaturge"),
-    Member(id=8, attr=Attributes(24,118,32), name="Awayuki",           level=40, job="Conjurer"),
+    Member(id=1, attr=Attributes(101,26,57), level=45, name="Cecily",            job="Gladiator"),
+    Member(id=2, attr=Attributes(40,26,114), level=43, name="Nanasomi",          job="Archer"),
+    Member(id=3, attr=Attributes(110,26,46), level=44, name="Hastaloeya",        job="Marauder"),
+    Member(id=4, attr=Attributes(62,36,76), level=40, name="Totodi",            job="Pugilist"),
+    Member(id=5, attr=Attributes(56,24,94), level=40, name="Inghilswys",        job="Lancer"),
+    Member(id=6, attr=Attributes(24,88,62), level=40, name="Sofine",            job="Scholar"),
+    Member(id=7, attr=Attributes(25,101,50), level=41, name="Nunulupa Tatalupa", job="Thaumaturge"),
+    Member(id=8, attr=Attributes(26,120,34), level=43, name="Awayuki",           job="Conjurer"),
 ]
 
 #   Yes, I copy-pasted the CSV in the python file, and then I used
@@ -383,10 +383,10 @@ Mission(requirements=Attributes(305,210,130),name="Supply Wagon Escort", level=1
 Mission(requirements=Attributes(320,145,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=True),
 Mission(requirements=Attributes(265,435,125),name="Frontline Support", level=20, xp_reward=15000, is_available=True),
 Mission(requirements=Attributes(270,145,425),name="Officer Escort", level=20, xp_reward=16500, is_available=True),
-Mission(requirements=Attributes(280,155,435),name="Border Patrol", level=25, xp_reward=19500, is_available=True),
+Mission(requirements=Attributes(280,155,435),name="Border Patrol", level=25, xp_reward=19500, is_available=False),
 Mission(requirements=Attributes(440,175,300),name="Stronghold Recon", level=30, xp_reward=22500, is_available=True),
 Mission(requirements=Attributes(455,315,190),name="Search and Rescue", level=35, xp_reward=25500, is_available=True),
-Mission(requirements=Attributes(170,480,310),name="Allied Maneuvers", level=35, xp_reward=27000, is_available=True),
+Mission(requirements=Attributes(170,480,310),name="Allied Maneuvers", level=35, xp_reward=27000, is_available=False),
 Mission(requirements=Attributes(315,325,340),name="Flagged Mission: Crystal Recovery", level=40, xp_reward=30000, is_available=True),
 ]
 
