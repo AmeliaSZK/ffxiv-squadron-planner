@@ -24,7 +24,7 @@ class Mission:
     requirements: Attributes
     level: int
     xp_reward: int
-    is_available: bool
+    is_available: bool = True
 
     def __str__(self):
         return f"Lv. {self.level:2}    {self.name} "
@@ -376,19 +376,21 @@ members = [
 #       (And also, that CSV "input" is first written in Excel lol.)
 
 missions = [
-Mission(requirements=Attributes(165,170,150),name="Military Courier", level=1, xp_reward=7500, is_available=True),
-Mission(requirements=Attributes(150,255,195),name="Outskirts Patrol", level=1, xp_reward=9000, is_available=True),
-Mission(requirements=Attributes(155,195,250),name="Beastmen Recon", level=5, xp_reward=10500, is_available=True),
-Mission(requirements=Attributes(305,210,130),name="Supply Wagon Escort", level=10, xp_reward=12000, is_available=True),
-Mission(requirements=Attributes(320,145,225),name="Pest Eradication", level=15, xp_reward=13500, is_available=True),
-Mission(requirements=Attributes(265,435,125),name="Frontline Support", level=20, xp_reward=15000, is_available=True),
-Mission(requirements=Attributes(270,145,425),name="Officer Escort", level=20, xp_reward=16500, is_available=True),
+Mission(requirements=Attributes(165,170,150),name="Military Courier", level=1, xp_reward=7500, ),
+Mission(requirements=Attributes(150,255,195),name="Outskirts Patrol", level=1, xp_reward=9000, ),
+Mission(requirements=Attributes(155,195,250),name="Beastmen Recon", level=5, xp_reward=10500, ),
+Mission(requirements=Attributes(305,210,130),name="Supply Wagon Escort", level=10, xp_reward=12000, ),
+Mission(requirements=Attributes(320,145,225),name="Pest Eradication", level=15, xp_reward=13500, ),
+Mission(requirements=Attributes(265,435,125),name="Frontline Support", level=20, xp_reward=15000, ),
+Mission(requirements=Attributes(270,145,425),name="Officer Escort", level=20, xp_reward=16500, ),
 Mission(requirements=Attributes(280,155,435),name="Border Patrol", level=25, xp_reward=19500, is_available=False),
-Mission(requirements=Attributes(440,175,300),name="Stronghold Recon", level=30, xp_reward=22500, is_available=True),
-Mission(requirements=Attributes(455,315,190),name="Search and Rescue", level=35, xp_reward=25500, is_available=True),
+Mission(requirements=Attributes(440,175,300),name="Stronghold Recon", level=30, xp_reward=22500, ),
+Mission(requirements=Attributes(455,315,190),name="Search and Rescue", level=35, xp_reward=25500, ),
 Mission(requirements=Attributes(170,480,310),name="Allied Maneuvers", level=35, xp_reward=27000, is_available=False),
-Mission(requirements=Attributes(315,325,340),name="Flagged Mission: Crystal Recovery", level=40, xp_reward=30000, is_available=True),
+Mission(requirements=Attributes(315,325,340),name="Flagged Mission: Crystal Recovery", level=40, xp_reward=30000, ),
 ]
+# To copy-paste the is_available:
+# Mission(requirements=Attributes(165,170,150),name="Military Courier", level=1, xp_reward=7500, is_available=False),
 
 #   But to manually update the mission attributes, I used the multi-column
 #       cursor in Visual Studio Code.
