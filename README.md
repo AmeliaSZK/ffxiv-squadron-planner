@@ -19,4 +19,17 @@ I should take for today's mission.
     1. Update the squadron attributes
     1. Update members attributes and levels
     1. Update missions
+1. Check the highest possible mission with 0 courses
+    1. Comment-out the code that prints results for 2 and 3 courses
+    1. Run the script
+    1. Check what can be done with 0 courses
+    1. Count how many mission can be done with 0 and 1 course
+    1. Update `threshold_nb_doable_missions_1_courses` with the higher
+        number found in the previous step
+    1. Uncomment the code that prints results for 2 courses.
+        (but leave commented the code for 3 courses)
+
+
+
+
 
