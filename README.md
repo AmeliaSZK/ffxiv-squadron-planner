@@ -83,7 +83,12 @@ retrieved from Windows, **for each squad**...
     1. The squad composition
     1. The training program (meaning, all the courses to take)
     1. The mission to do after the training
-
+1. Commit the changes to the script. This step is meant to grab the changes
+    to the code that you made, and that you forgot that you made by the
+    time you're done looking for results that you like.
+1. Push the git repo to Github, so that you can access the current code
+    from the Github website, without having to reboot into Linux
+1. Reboot to Windows.
 
 
 
