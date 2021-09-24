@@ -479,7 +479,7 @@ for course in list(Course):
     print()
 print("****************")
 
-threshold_nb_doable_missions_1_courses = 7
+threshold_nb_doable_missions_1_courses = 6
 print()
 print("Doable missions with two courses, grouped by training program")
 print(f"Initial\t{training_attr}")
@@ -496,22 +496,22 @@ for courses in product(list(Course), repeat=2):
     print()
 print("****************")
 
-# threshold_nb_doable_missions_2_courses = 6
-# print()
-# print("Doable missions with three courses, grouped by training program")
-# print(f"Initial\t{training_attr}")
-# for courses in product(list(Course), repeat=3):
-#     prog = TrainingProgram(courses, training_attr, max_training_attr)
-#     doable_missions = list(sq.iter_doable_missions_with_program(prog))
-#     if prog.is_redundant:
-#         continue
-#     # If training prog offers no new missions:
-#     if len(doable_missions) <= threshold_nb_doable_missions_2_courses:
-#         continue
-#     print(prog)
-#     print(*doable_missions, sep='\n')
-#     print()
-# print("****************")
+threshold_nb_doable_missions_2_courses = 6
+print()
+print("Doable missions with three courses, grouped by training program")
+print(f"Initial\t{training_attr}")
+for courses in product(list(Course), repeat=3):
+    prog = TrainingProgram(courses, training_attr, max_training_attr)
+    doable_missions = list(sq.iter_doable_missions_with_program(prog))
+    if prog.is_redundant:
+        continue
+    # If training prog offers no new missions:
+    if len(doable_missions) <= threshold_nb_doable_missions_2_courses:
+        continue
+    print(prog)
+    print(*doable_missions, sep='\n')
+    print()
+print("****************")
 
 # print()
 # print(f"Initial\t{training_attr}")
