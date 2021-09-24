@@ -527,12 +527,7 @@ print("****************")
 #     print()
 
 
-train_prog = TrainingProgram((Course.TAC, Course.TAC,), training_attr, max_training_attr)
-print()
-print(train_prog)
-sq.print_lowest_squad_for_all_doable_missions(train_prog)
-
-train_prog = TrainingProgram((Course.TAC, Course.TAC, Course.PHY_TAC,), training_attr, max_training_attr)
+train_prog = TrainingProgram((Course.PHY_MEN, Course.PHY, Course.PHY,), training_attr, max_training_attr)
 print()
 print(train_prog)
 sq.print_lowest_squad_for_all_doable_missions(train_prog)
